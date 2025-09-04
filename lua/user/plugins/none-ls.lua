@@ -7,6 +7,9 @@ return {
     -- local code_actions = null_ls.builtins.code_actions
 
     null_ls.setup({
+      root_dir = function()
+        return vim.fn.getcwd()
+      end,
       debug = true,
       sources = {
         diagnostics.twigcs,
