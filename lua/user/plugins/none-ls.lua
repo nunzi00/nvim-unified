@@ -7,6 +7,9 @@ return {
 
     null_ls.setup({
       debug = true,
+      root_dir = function()
+        return vim.fn.getcwd()
+      end,
       sources = {
         diagnostics.twigcs,
         diagnostics.phpstan.with({
