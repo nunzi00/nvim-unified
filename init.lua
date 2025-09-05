@@ -1,10 +1,3 @@
-local function loadrequire(module)
-    local function requiref(module)
-        require(module)
-    end
-    pcall(requiref,module)
-end
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.mouse = 'a'
@@ -21,8 +14,4 @@ require "user.autocommands"
 require "user.dap"
 require "user.filetypes"
 
-onenord_load = function()
-  vim.cmd [[colorscheme onenord]]
-end
-
-return onenord_load()
+vim.cmd [[colorscheme onenord]]
