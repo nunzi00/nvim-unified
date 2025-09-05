@@ -38,7 +38,6 @@ return {
     local function setup_default(server_name)
       if server_name == "phpactor" or server_name == "intelephense" then return end
       if not lspconfig[server_name] then return end
-      -- Evitar doble setup si algún otro módulo ya lo hizo
       if lspconfig[server_name].manager ~= nil then return end
       lspconfig[server_name].setup({
         on_attach = handlers.on_attach,
@@ -47,15 +46,15 @@ return {
       })
     end
 
-    local function setup_php_like(server_name)
+    local function setup_php_like(server_name, opts)
       if not lspconfig[server_name] then return end
       if lspconfig[server_name].manager ~= nil then return end
-      lspconfig[server_name].setup({
+      lspconfig[server_name].setup(vim.tbl_deep_extend("force", {
         on_attach = handlers.on_attach,
         capabilities = handlers.capabilities,
         root_dir = function(_) return vim.loop.cwd() end,
         single_file_support = true,
-      })
+      }, opts or {}))
     end
 
     -- API nueva (setup_handlers) o fallback
@@ -68,7 +67,20 @@ return {
           setup_php_like("phpactor")
         end,
         ["intelephense"] = function()
-          setup_php_like("intelephense")
+          setup_php_like("intelephense", {
+            settings = {
+              intelephense = {
+                files = {
+                  exclude = {
+                    "**/.git/**",
+                    "**/node_modules/**",
+                    "**/vendor/**",
+                    "**/var/**",
+                  },
+                },
+              },
+            },
+          })
         end,
       })
     else
@@ -77,7 +89,20 @@ return {
         setup_default(server_name)
       end
       setup_php_like("phpactor")
-      setup_php_like("intelephense")
+      setup_php_like("intelephense", {
+        settings = {
+          intelephense = {
+            files = {
+              exclude = {
+                "**/.git/**",
+                "**/node_modules/**",
+                "**/vendor/**",
+                "**/var/**",
+              },
+            },
+          },
+        },
+      })
     end
 
     -- === Anti-duplicados robusto (phpactor/intelephense) ===
@@ -106,7 +131,6 @@ return {
             table.insert(same, c)
           end
         end
-        -- si hay más de uno con el mismo cwd, deja solo uno
         for i = 2, #same do
           local c = same[i]
           vim.schedule(function() c.stop() end)
