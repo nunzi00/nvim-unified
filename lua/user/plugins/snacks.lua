@@ -1,7 +1,7 @@
 return {
   "folke/snacks.nvim",
   priority = 1000,
-  lazy = false,
+  lazy = true,
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "OilActionsPost",
