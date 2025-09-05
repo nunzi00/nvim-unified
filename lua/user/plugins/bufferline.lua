@@ -1,1 +1,1 @@
-return { "akinsho/bufferline.nvim" }
+return { "akinsho/bufferline.nvim", event = "BufReadPre" }
