@@ -7,15 +7,15 @@ return {
     -- local code_actions = null_ls.builtins.code_actions
 
     null_ls.setup({
-      root_dir = function()
-        return vim.fn.getcwd()
-      end,
+      -- root_dir = function()
+      --   return vim.fn.getcwd()
+      -- end,
       debug = true,
       sources = {
         diagnostics.twigcs,
-        diagnostics.phpstan.with({
-          command = "./vendor/bin/phpstan"
-        }),
+        -- diagnostics.phpstan.with({
+        --   command = "./vendor/bin/phpstan"
+        -- }),
         diagnostics.yamllint.with({
           extra_args = { "-d { extends: default, rules: {line-length: {max: 120}}}" }
         }),
@@ -28,10 +28,10 @@ return {
           -- timeout = 20000,
           -- command = "./vendor/bin/psalm"
         -- }),
-        diagnostics.phpcs.with({
-          command = "./vendor/bin/phpcs",
-          extra_args = { "--standard=PSR12" }
-        }),
+        -- diagnostics.phpcs.with({
+        --   command = "./vendor/bin/phpcs",
+        --   extra_args = { "--standard=PSR12" }
+        -- }),
         -- diagnostics.phpmd.with({
         --   command = "./vendor/bin/phpmd",
         --   extra_args = { "cleancode,codesize,controversial,design,naming,unusedcode" }
@@ -40,9 +40,9 @@ return {
         formatting.prettier,
         -- formatting.prettierd,
         -- code_actions.eslint,
-        formatting.gofmt,
+        -- formatting.gofmt,
         -- formatting.gofumpt,
-        formatting.goimports,
+        -- formatting.goimports,
         diagnostics.staticcheck,
         -- diagnostics.revive,
         diagnostics.zsh,
