@@ -133,19 +133,17 @@ cmp.setup {
     --   return vim_item
     -- end,
   },
-  sources = {
-    { name = "ultisnips" },
-    { name = "tsserver" },
-    { name = "bashls" },
-    { name = "nvim_lua" },
-    { name = "intelephense" },
+  sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-    -- { name = "volar" },
-    { name = "copilot" },
-  },
+    { name = "tsserver" },
+    { name = "ultisnips" },
+    { name = "bashls" },
+    { name = "nvim_lua" },
+    { name = "intelephense" }
+  }),
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
