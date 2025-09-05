@@ -1,2 +1,0 @@
-return { "moll/vim-bbye" }
-
