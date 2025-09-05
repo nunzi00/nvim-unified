@@ -80,10 +80,6 @@ keymap("n", "<C-t>", "<cmd>Telescope live_grep<CR>", opts)
 -- NvimTree
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
 
--- ToggleTerm
-keymap("n", "<F12>", ":ToggleTerm <CR>", opts)
-keymap("n", "<leader>g", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
-
 -- Neotest
 keymap("n", "<leader>tr", "<cmd>TextCaseOpenTelescope<cr>", opts)
 keymap("n", "<leader>to", "<esc><cmd>lua require('neotest').output_panel.open()<cr>", opts)
