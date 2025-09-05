@@ -19,20 +19,13 @@ return {
           command = "./vendor/bin/phpcs",
           extra_args = { "--standard=PSR12" }
         }),
-        -- diagnostics.phpmd.with({
-        --   command = "./vendor/bin/phpmd",
-        --   extra_args = { "cleancode,codesize,controversial,design,naming,unusedcode" }
-        -- }),
-        -- formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
         formatting.prettier,
         diagnostics.staticcheck,
         diagnostics.zsh,
         diagnostics.npm_groovy_lint,
         diagnostics.semgrep.with({ filetypes = {"go"}, extra_args = { "--config=auto" }}),
-        -- formatting.json_tool,
         formatting.xmllint,
         diagnostics.stylelint,
-        formatting.phpcbf,
         formatting.stylelint,
         formatting.tidy,
         formatting.black.with({ extra_args = { "--fast" } }),
