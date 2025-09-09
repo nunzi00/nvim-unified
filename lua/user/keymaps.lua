@@ -148,3 +148,6 @@ vim.keymap.set("n", "<leader>lr", function()
   require "inc_rename"
   return ":IncRename " .. vim.fn.expand "<cword>"
 end)
+
+-- Atajo global para Code Action como respaldo
+vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
