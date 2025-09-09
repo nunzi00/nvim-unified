@@ -3,12 +3,8 @@ return {
   "neovim/nvim-lspconfig",
   lazy = false,
   dependencies = {
-    {
-      "williamboman/mason.nvim",
-      lazy = false,
-      config = function() require("mason").setup() end,
-    },
-    { "williamboman/mason-lspconfig.nvim", lazy = false },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
   },
   config = function()
     -- Handlers seguros
@@ -63,8 +59,8 @@ return {
             on_attach = handlers.on_attach,
             capabilities = handlers.capabilities,
             init_options = {
-              ["language_server_phpstan.enabled"] = true,
-              ["language_server_psalm.enabled"] = true,
+              -- Desactivar el proveedor que da errores para estabilizar el resto de funciones
+              ["language_server_php_code_sniffer.enabled"] = false,
             }
           })
         end,

@@ -70,6 +70,7 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  vim.notify("on_attach called for: " .. client.name) -- DEBUG
   -- Desactivar formateo donde no lo quieres
   if client.name == "tsserver" or client.name == "ts_ls" then
     client.server_capabilities.documentFormattingProvider = false
@@ -80,9 +81,9 @@ M.on_attach = function(client, bufnr)
 
   -- Mapear code_action solo si el servidor lo soporta
   if client.server_capabilities.codeActionProvider then
+    vim.notify("Code actions supported by: " .. client.name) -- DEBUG
     local opts = { noremap = true, silent = true }
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   end
 
   lsp_keymaps(bufnr)
