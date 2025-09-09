@@ -105,6 +105,10 @@ keymap("n", "<leader>ee", ":call phpactor#ExtractExpression()<CR>", opts)       
 keymap("v", "<leader>ee", ":call phpactor#ExtractExpression(v:true)<CR>", opts) -- Extract expression (visual mode)
 keymap("v", "<leader>em", ":call <C-u>PhpactorExtractMethod<CR>", opts)         -- Extract method (visual mode)
 keymap("v", "<leader>ec", ":call <C-u>PhpactorExtractConstant<CR>", opts)       -- Extract method (visual mode)
+keymap("n", "<leader>am", "<cmd>PhpactorContextMenu<CR>", opts)
+keymap("n", "<leader>ac", "<cmd>PhpactorClassExpand<CR>", opts)
+keymap("n", "<leader>an", "<cmd>PhpactorClassNew<CR>", opts)
+keymap("n", "<leader>ar", "<cmd>PhpactorRenameVariable<CR>", opts)
 
 -- -------------------------------------------------------------------------------
 -- nmap <S-F4> :execute "silent grep! -R " . expand("<cword>") . " ./**" <Bar> cw<CR>
@@ -122,19 +126,6 @@ keymap("v", "<leader>ec", ":call <C-u>PhpactorExtractConstant<CR>", opts)       
 -- keymap("n", "<leader>rl", "<cmd>lua require('rest-nvim').last()<cr>", opts)
 -- keymap("n", "<leader>rt", "<cmd>lua require('rest-nvim').run(true)<cr>", opts)
 
--- LSP
-keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-keymap("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
-keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-
 -- General
 keymap("n", "<leader>pv", vim.cmd.Ex)
 keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -146,35 +137,9 @@ keymap("n", "<C-q>", "<cmd>qa!<CR>")
 keymap("n", "<leader>q", "<cmd>bd<cr>")
 keymap("n", "<C-s>", "<cmd>w!<cr>")
 keymap("n", "|", "<cmd>vs<cr>")
-
-
 keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
 keymap("n", "<leader>ta", function()
   vim.cmd "!docker exec gf_back sh -c 'APP_ENV=test php vendor/bin/phpunit'"
-end)
-
-keymap("n", "<leader>ct", function()
-  local file = vim.fn.expand "%"
-  local command = string.format("!docker exec gf_back sh -c 'php vendor/bin/psalm -c psalm.xml %s'", file)
-  vim.notify(command)
-  vim.cmd(command)
-end)
-keymap("n", "<leader>ta", function()
-  vim.cmd "!docker exec gf_back sh -c 'APP_ENV=test php vendor/bin/phpunit'"
-end)
-
-keymap("n", "<leader>ct", function()
-  local file = vim.fn.expand "%"
-  local command = string.format("!docker exec gf_back sh -c 'php vendor/bin/psalm -c psalm.xml %s'", file)
-  vim.notify(command)
-  vim.cmd(command)
-end)
-vim.keymap.set("n", "<leader>psa", function()
-  local file = vim.fn.expand "%"
-  local command = string.format("!docker exec gf_back sh -c 'php vendor/bin/psalm -c psalm.xml'", file)
-  vim.notify(command)
-  vim.cmd(command)
 end)
 
 -- Plugins
@@ -183,10 +148,3 @@ vim.keymap.set("n", "<leader>lr", function()
   require "inc_rename"
   return ":IncRename " .. vim.fn.expand "<cword>"
 end)
-
-
-
-keymap("n", "<leader>am", "<cmd>PhpactorContextMenu<CR>", opts)
-keymap("n", "<leader>ac", "<cmd>PhpactorClassExpand<CR>", opts)
-keymap("n", "<leader>an", "<cmd>PhpactorClassNew<CR>", opts)
-keymap("n", "<leader>ar", "<cmd>PhpactorRenameVariable<CR>", opts)
