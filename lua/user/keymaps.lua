@@ -133,14 +133,17 @@ keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
 keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 keymap('n', 'ne', "<esc><cmd>enew<cr>")
-keymap("n", "<C-q>", "<cmd>qa!<CR>")
-keymap("n", "<leader>q", "<cmd>bd<cr>")
-keymap("n", "<C-s>", "<cmd>w!<cr>")
 keymap("n", "|", "<cmd>vs<cr>")
 keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap("n", "<leader>ta", function()
   vim.cmd "!docker exec gf_back sh -c 'APP_ENV=test php vendor/bin/phpunit'"
 end)
+keymap("n", "<C-q>", "<cmd>qa!<CR>", opts)
+keymap("n", "<leader>q", "<cmd>bd<cr>", opts)
+keymap("n", "<C-s>", "<cmd>w!<cr>", opts)
+keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
+
+
 
 -- Plugins
 -- LSP
@@ -158,3 +161,4 @@ keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ buffer = 0 })<CR>", opts)
 keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 keymap("n", "<leader>sh", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
