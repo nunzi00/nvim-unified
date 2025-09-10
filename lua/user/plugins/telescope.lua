@@ -28,6 +28,7 @@ return {
     vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Quickfix" })
     vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help Tags" })
     vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find Symbols" })
+    vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
     -- vim.keymap.set("n", "<leader>fi", "<cmd>AdvancedGitSearch<CR>", { desc = "AdvancedGitSearch" })
     vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Find Old Files" })
     vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find Word under Cursor" })
