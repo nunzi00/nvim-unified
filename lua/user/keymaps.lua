@@ -73,9 +73,9 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, silent = false, expr = true })
 
 -- Telescope
-keymap("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
--- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<CR>", opts)
-keymap("n", "<C-t>", "<cmd>Telescope live_grep<CR>", opts)
+-- keymap("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
+-- -- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<CR>", opts)
+-- keymap("n", "<C-t>", "<cmd>Telescope live_grep<CR>", opts)
 
 -- NvimTree
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
