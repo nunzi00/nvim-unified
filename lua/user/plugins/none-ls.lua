@@ -11,6 +11,16 @@ return {
         return vim.fn.getcwd()
       end,
       sources = {
+        -- Custom Prettier formatter for JSON
+        {
+            method = null_ls.methods.FORMATTING,
+            filetypes = { "json" },
+            generator = null_ls.generator({
+                command = "prettier",
+                args = { "--parser", "json" },
+                to_stdin = true,
+            }),
+        },
         diagnostics.twigcs,
         diagnostics.phpstan.with({
           command = "./vendor/bin/phpstan"
@@ -22,7 +32,6 @@ return {
           command = "./vendor/bin/phpcs",
           extra_args = { "--standard=PSR12" }
         }),
-        formatting.prettier,
         diagnostics.staticcheck,
         diagnostics.zsh,
         diagnostics.npm_groovy_lint,
