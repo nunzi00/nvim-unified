@@ -12,5 +12,6 @@ require "user.cmp"
 require "user.autocommands"
 require "user.dap"
 require "user.filetypes"
+require "luasnip"
 
 vim.cmd [[colorscheme onenord]]

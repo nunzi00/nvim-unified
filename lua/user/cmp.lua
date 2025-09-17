@@ -1,4 +1,10 @@
 -- lua/user/cmp.lua
+
+-- Luasnip is active.
+-- To use snippets, type a snippet trigger (e.g., "date") and press <Tab> to expand it.
+-- Press <Tab> again to jump to the next placeholder in the snippet.
+-- Press <S-Tab> to jump to the previous placeholder.
+
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
