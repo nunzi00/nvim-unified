@@ -25,7 +25,7 @@ return {
     -- Servidores a instalar
     local servers = {
       "bashls","dockerls","eslint","html","jsonls","lua_ls",
-      "sqlls","ts_ls","vimls","yamlls", "phpactor", "intelephense",
+      "sqlls","ts_ls","vimls","yamlls", "phpactor",
     }
 
     -- Configuración centralizada con mason-lspconfig
@@ -41,17 +41,6 @@ return {
             single_file_support = true,
           })
         end,
-
-        -- Configuración específica para Intelephense (principalmente para autocompletado)
-        -- ["intelephense"] = function()
-        --   local php_root = util.root_pattern("composer.json", ".git")
-        --   lspconfig.intelephense.setup({
-        --     on_attach = handlers.on_attach,
-        --     capabilities = handlers.capabilities,
-        --     single_file_support = true,
-        --     root_dir = function(fname) return php_root(fname) or util.path.dirname(fname) end,
-        --   })
-        -- end,
 
         -- Configuración específica para Phpactor (principalmente para code_action)
         ["phpactor"] = function()
