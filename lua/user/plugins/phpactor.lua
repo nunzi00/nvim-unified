@@ -3,6 +3,9 @@ return {
   branch = "master",
   ft = "php", -- lo carga solo en buffers PHP
   build = "composer install --no-dev -o", -- instala dependencias
+  dependencies = {
+    "neovim/nvim-lspconfig",
+  },
   config = function()
     -- Opcional: mapeos cómodos
     vim.keymap.set("n", "<leader>pm", "<cmd>PhpactorContextMenu<CR>", { desc = "Phpactor context menu" })
@@ -10,4 +13,3 @@ return {
     vim.keymap.set("n", "<leader>pn", "<cmd>PhpactorClassExpand<CR>", { desc = "Phpactor expand class" })
   end,
 }
-
