@@ -23,7 +23,7 @@ return {
       "jsonls",
       "lua_ls",
       "sqlls",
-      "ts_ls",       -- o "tsserver" según tu setup
+      "ts_ls", -- o "tsserver" según tu setup
       "vimls",
       "yamlls",
       "intelephense", -- único LSP para PHP
@@ -102,6 +102,7 @@ return {
         settings = {
           intelephense = {
             files = {
+              maxSize = 2000000, -- 2MB
               exclude = {
                 "**/.git/**",
                 "**/node_modules/**",
@@ -109,6 +110,11 @@ return {
                 "**/var/**",
               },
             },
+            environment = {
+              phpVersion = "8.3",
+            },
+            format = { enable = true },
+            stubs = { "apache", "bcmath", "bz2", "calendar", "Core", "curl", "date", "dom", "fileinfo", "filter", "gd", "gettext", "hash", "iconv", "intl", "json", "libxml", "mbstring", "mcrypt", "mysql", "mysqli", "openssl", "pcntl", "pcre", "PDO", "pdo_mysql", "pdo_sqlite", "Phar", "posix", "readline", "redis", "Reflection", "session", "SimpleXML", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard", "tokenizer", "xml", "xmlreader", "xmlwriter", "xsl", "zlib" },
           },
         },
       })
@@ -165,4 +171,3 @@ return {
     })
   end,
 }
-
