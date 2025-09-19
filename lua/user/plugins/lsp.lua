@@ -72,7 +72,6 @@ return {
               exclude = {
                 "**/.git/**",
                 "**/node_modules/**",
-                "**/vendor/**",
                 "**/var/**",
               },
             },
