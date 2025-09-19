@@ -5,6 +5,12 @@ vim.opt.mouse = 'a'
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Prepend Mason bin to PATH (para intelephense, node, etc.)
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+if not vim.env.PATH:find(vim.pesc(mason_bin), 1, true) then
+  vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+end
+
 -- Prepend Composer global vendor/bin to PATH (sin invocar composer)
 local home = vim.fn.expand("~")
 local bins = {
@@ -20,7 +26,6 @@ for _, p in ipairs(bins) do
     break
   end
 end
-
 
 require "user.options"
 require "user.keymaps"
