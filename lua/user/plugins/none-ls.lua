@@ -25,9 +25,9 @@ return {
         diagnostics.phpstan.with({
           command = "./vendor/bin/phpstan"
         }),
-        diagnostics.yamllint.with({
-          extra_args = { "-d { extends: default, rules: {line-length: {max: 120}}}" }
-        }),
+        -- diagnostics.yamllint.with({
+        --   extra_args = { "-d { extends: default, rules: {line-length: {max: 120}}}" }
+        -- }),
         diagnostics.phpcs.with({
           command = "./vendor/bin/phpcs",
           extra_args = { "--standard=PSR12" }
