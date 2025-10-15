@@ -8,10 +8,11 @@ return {
     -- Los comandos del wrapper son con :PhpActor <subcomando>
     { "<leader>mm", "<cmd>PhpActor context_menu<CR>",           desc = "Phpactor: Context menu",       mode = "n" },
     { "<leader>pi", "<cmd>PhpActor import_missing_classes<CR>", desc = "Phpactor: Import missing",     mode = "n" },
-    { "<leader>pc", "<cmd>PhpActor expand_class<CR>",           desc = "Phpactor: Expand class",       mode = "n" },
+    { "<leader>pe", "<cmd>PhpActor expand_class<CR>",           desc = "Phpactor: Expand class",       mode = "n" },
     { "<leader>pn", "<cmd>PhpActor new_class<CR>",              desc = "Phpactor: New class",          mode = "n" },
     { "<leader>pr", "<cmd>PhpActor change_visibility<CR>",      desc = "Phpactor: Change visibility",  mode = "n" },
     { "<leader>pm", "<cmd>PhpActor move_class<CR>",             desc = "Phpactor: Move class/file",    mode = "n" },
+    { "<leader>pc", "<cmd>PhpActor copy_class<CR>",             desc = "Phpactor: Copy class/file",    mode = "n" },
     { "<leader>pt", "<cmd>PhpActor transform<CR>",              desc = "Phpactor: Transform",          mode = "n" },
     { "<leader>ps", "<cmd>PhpActor status<CR>",                 desc = "Phpactor: Status",             mode = "n" },
     -- extras posibles del wrapper: generate_accessor, copy_class, navigate, etc.
