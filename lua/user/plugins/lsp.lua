@@ -22,7 +22,7 @@ return {
       "jsonls",
       "lua_ls",
       "sqlls",
-      "ts_ls",
+      "tsserver",
       "vimls",
       "yamlls",
       "intelephense",
