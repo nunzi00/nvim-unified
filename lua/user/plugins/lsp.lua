@@ -26,7 +26,7 @@ return {
       "vimls",
       "yamlls",
       "intelephense",
-      -- OJO: Phpactor no lo metemos aquí, lo configuramos aparte abajo
+      -- Phpactor se configura aparte
     }
 
     local mlsp = require("mason-lspconfig")
@@ -35,7 +35,6 @@ return {
       automatic_installation = true,
     })
 
-    local lspconfig = require("lspconfig")
     local handlers = require("user.lsp.handlers")
 
     -- === Intelephense ===
@@ -45,19 +44,16 @@ return {
 
     local function setup_default(server_name)
       if server_name == "intelephense" then return end
-      if not lspconfig[server_name] then return end
-      if lspconfig[server_name].manager ~= nil then return end
-      lspconfig[server_name].setup({
+      vim.lsp.config[server_name] = {
         on_attach = handlers.on_attach,
         capabilities = handlers.capabilities,
         single_file_support = true,
-      })
+      }
+      vim.lsp.enable(server_name)
     end
 
     local function setup_php_like(opts)
-      if not lspconfig.intelephense then return end
-      if lspconfig.intelephense.manager ~= nil then return end
-      lspconfig.intelephense.setup(vim.tbl_deep_extend("force", {
+      vim.lsp.config["intelephense"] = vim.tbl_deep_extend("force", {
         on_attach = handlers.on_attach,
         capabilities = handlers.capabilities,
         root_dir = function(_) return vim.loop.cwd() end,
@@ -77,10 +73,11 @@ return {
             },
           },
         },
-      }, opts or {}))
+      }, opts or {})
+      vim.lsp.enable("intelephense")
     end
 
-    -- fallback manual (no tienes setup_handlers en mason-lspconfig)
+    -- === Fallback manual si no hay setup_handlers ===
     local installed = mlsp.get_installed_servers and mlsp.get_installed_servers() or servers
     for _, server_name in ipairs(installed) do
       setup_default(server_name)
@@ -93,10 +90,12 @@ return {
       group = grp,
       pattern = "*.php",
       callback = function()
-        local srv = lspconfig.intelephense
-        if srv and srv.manager then
-          srv.manager:try_add()
+        for _, client in ipairs(vim.lsp.get_clients({ name = "intelephense" })) do
+          if client and client.attached_buffers then
+            return
+          end
         end
+        vim.lsp.enable("intelephense")
       end,
     })
 
@@ -116,19 +115,19 @@ return {
 
     local function kill_non_cwd_php_clients()
       local cwd = vim.loop.cwd()
-      for _, c in ipairs(vim.lsp.get_active_clients({ name = "intelephense" })) do
+      for _, c in ipairs(vim.lsp.get_clients({ name = "intelephense" })) do
         local r = client_root(c)
         if r ~= cwd then
-          vim.schedule(function() c.stop() end)
+          vim.schedule(function() c:stop() end)
         end
       end
       local same = {}
-      for _, c in ipairs(vim.lsp.get_active_clients({ name = "intelephense" })) do
+      for _, c in ipairs(vim.lsp.get_clients({ name = "intelephense" })) do
         if client_root(c) == cwd then table.insert(same, c) end
       end
       for i = 2, #same do
         local c = same[i]
-        vim.schedule(function() c.stop() end)
+        vim.schedule(function() c:stop() end)
       end
     end
 
@@ -147,36 +146,32 @@ return {
       end,
     })
 
-    -- === Phpactor como LSP (solo para code actions) ===
-    if lspconfig.phpactor then
-      lspconfig.phpactor.setup({
-        on_attach = function(client, bufnr)
-          -- desactiva formateo para que no choque con otros
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-          if handlers and handlers.on_attach then
-            handlers.on_attach(client, bufnr)
-          end
-        end,
-        capabilities = handlers and handlers.capabilities or nil,
-        root_dir = function() return vim.loop.cwd() end,
-        single_file_support = true,
-        init_options = {
-          ["language_server_worse_reflection.inlay_hints.enable"] = false,
-        },
-      })
+    -- === Phpactor como LSP (solo code actions) ===
+    vim.lsp.config["phpactor"] = {
+      on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        if handlers and handlers.on_attach then
+          handlers.on_attach(client, bufnr)
+        end
+      end,
+      capabilities = handlers and handlers.capabilities or nil,
+      root_dir = function() return vim.loop.cwd() end,
+      single_file_support = true,
+      init_options = {
+        ["language_server_worse_reflection.inlay_hints.enable"] = false,
+      },
+    }
+    vim.lsp.enable("phpactor")
 
-      local grp2 = vim.api.nvim_create_augroup("phpactor_lsp_try_add", { clear = true })
-      vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter", "BufWinEnter" }, {
-        group = grp2,
-        pattern = "*.php",
-        callback = function()
-          if lspconfig.phpactor and lspconfig.phpactor.manager then
-            lspconfig.phpactor.manager:try_add()
-          end
-        end,
-      })
-    end
+    local grp2 = vim.api.nvim_create_augroup("phpactor_lsp_try_add", { clear = true })
+    vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter", "BufWinEnter" }, {
+      group = grp2,
+      pattern = "*.php",
+      callback = function()
+        vim.lsp.enable("phpactor")
+      end,
+    })
   end,
 }
 
