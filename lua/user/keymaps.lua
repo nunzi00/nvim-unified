@@ -124,4 +124,20 @@ keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 
 
 
+-- Plugins
+-- LSP
+keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ buffer = 0 })<CR>", opts)
+keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ buffer = 0 })<CR>", opts)
+keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+keymap("n", "<leader>sh", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
+keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
