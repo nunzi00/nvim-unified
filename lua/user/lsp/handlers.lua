@@ -6,7 +6,8 @@ local M = {}
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 -- Capacidades LSP + nvim-cmp
-M.capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+M.capabilities = cmp_nvim_lsp.default_capabilities()
+
 
 -- Colores para los diagnósticos
 vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#FF0000", bg = "#232129" })
