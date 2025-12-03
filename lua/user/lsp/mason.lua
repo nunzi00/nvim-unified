@@ -1,2 +1,0 @@
--- This file is intentionally left blank.
--- Server configurations are now handled by mason-lspconfig.nvim plugin.
