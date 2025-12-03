@@ -34,7 +34,6 @@ return {
       automatic_installation = true,
     })
 
-    local lspconfig = require("lspconfig")
     local handlers = require("user.lsp.handlers")
 
     -- Configuración por defecto para la mayoría de servidores
@@ -43,18 +42,20 @@ return {
       capabilities = handlers.capabilities,
     }
 
-    -- === Configurar todos los servidores excepto intelephense ===
+    -- === Configurar todos los servidores excepto intelephense y phpactor ===
     for _, server_name in ipairs(servers) do
       if server_name ~= "intelephense" then
-        lspconfig[server_name].setup(default_config)
+        vim.lsp.config[server_name] = default_config
+        vim.lsp.enable(server_name)
       end
     end
 
     -- === Intelephense (PHP) ===
-    lspconfig.intelephense.setup({
+    vim.lsp.config.intelephense = {
       on_attach = handlers.on_attach,
       capabilities = handlers.capabilities,
       root_dir = function() return vim.loop.cwd() end,
+      filetypes = { "php" },
       single_file_support = true,
       settings = {
         intelephense = {
@@ -70,10 +71,10 @@ return {
           },
         },
       },
-    })
+    }
 
     -- === Phpactor (PHP - solo code actions) ===
-    lspconfig.phpactor.setup({
+    vim.lsp.config.phpactor = {
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
@@ -82,11 +83,22 @@ return {
         end
       end,
       capabilities = handlers.capabilities,
+      cmd = { "phpactor", "language-server" },
       root_dir = function() return vim.loop.cwd() end,
+      filetypes = { "php" },
       single_file_support = true,
       init_options = {
         ["language_server_worse_reflection.inlay_hints.enable"] = false,
       },
+    }
+
+    -- Habilitar servidores PHP cuando se abren archivos PHP
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "php",
+      callback = function(ev)
+        vim.lsp.enable("intelephense", ev.buf)
+        vim.lsp.enable("phpactor", ev.buf)
+      end,
     })
   end,
 }
