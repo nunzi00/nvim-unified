@@ -55,7 +55,7 @@ return {
     lspconfig.intelephense.setup({
       on_attach = handlers.on_attach,
       capabilities = handlers.capabilities,
-      root_dir = function() return vim.loop.cwd() end,
+      -- Use default root_dir detection (composer.json, .git, etc.)
       single_file_support = true,
       settings = {
         intelephense = {
@@ -83,7 +83,7 @@ return {
         end
       end,
       capabilities = handlers.capabilities,
-      root_dir = function() return vim.loop.cwd() end,
+      -- Use default root_dir detection (composer.json, .git, etc.)
       single_file_support = true,
       init_options = {
         ["language_server_worse_reflection.inlay_hints.enable"] = false,
