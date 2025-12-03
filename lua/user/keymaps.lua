@@ -139,5 +139,3 @@ keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ buffer = 0 })<CR>", opts)
 keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ buffer = 0 })<CR>", opts)
 keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 keymap("n", "<leader>sh", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-
-keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
