@@ -6,7 +6,7 @@ return {
     local diagnostics = null_ls.builtins.diagnostics
 
     null_ls.setup({
-      debug = true,
+      debug = false,
       root_dir = function()
         return vim.fn.getcwd()
       end,
