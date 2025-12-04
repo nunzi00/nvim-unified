@@ -34,8 +34,7 @@ return {
       automatic_installation = true,
     })
 
-    -- Usar lspconfig para mantener compatibilidad y facilidad
-    local lspconfig = require("lspconfig")
+    -- Usar nueva API vim.lsp.config (nvim 0.11+)
     local handlers = require("user.lsp.handlers")
 
     -- Configuración por defecto para la mayoría de servidores
@@ -47,12 +46,12 @@ return {
     -- === Configurar todos los servidores excepto intelephense ===
     for _, server_name in ipairs(servers) do
       if server_name ~= "intelephense" then
-        lspconfig[server_name].setup(default_config)
+        vim.lsp.config(server_name, default_config)
       end
     end
 
     -- === Intelephense (PHP) ===
-    lspconfig.intelephense.setup({
+    vim.lsp.config("intelephense", {
       on_attach = handlers.on_attach,
       capabilities = handlers.capabilities,
       -- Use default root_dir detection (composer.json, .git, etc.)
@@ -74,7 +73,7 @@ return {
     })
 
     -- === Phpactor (PHP - solo code actions) ===
-    lspconfig.phpactor.setup({
+    vim.lsp.config("phpactor", {
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
@@ -89,5 +88,13 @@ return {
         ["language_server_worse_reflection.inlay_hints.enable"] = false,
       },
     })
+
+    -- Auto-start configured LSP servers
+    for _, server_name in ipairs(servers) do
+      vim.lsp.enable(server_name)
+    end
+
+    -- Also enable phpactor
+    vim.lsp.enable("phpactor")
   end,
 }
