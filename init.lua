@@ -5,6 +5,11 @@ vim.opt.mouse = 'a'
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.clipboard = "unnamedplus"
+vim.opt.hidden = true
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 10
+
 -- Prepend Mason bin to PATH (para intelephense, node, etc.)
 local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
 if not vim.env.PATH:find(vim.pesc(mason_bin), 1, true) then
