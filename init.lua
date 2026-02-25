@@ -38,6 +38,7 @@ require "user.lazy"
 require "user.theme-monokai-pro"
 require "user.autocommands"
 require "user.filetypes"
+require("user.life5").setup()
 
 -- vim.cmd [[colorscheme onenord]]
 
