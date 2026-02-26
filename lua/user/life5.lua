@@ -19,7 +19,7 @@ function M.setup()
 
     -- Insertar encima: línea en blanco, ### RESUME, ```text
     vim.cmd([[
-      g/SCOR_PRE_RENEWAL --- Finished\. Total:/call append(line('.')-1, ['', '### RESUME', '```text'])
+      g/SCOR_PRE_RENEWAL --- Finished\. Total:/call append(line('.')-1, ['', '### RESUME', '```'])
     ]])
 
     -- Insertar debajo: ```
@@ -28,7 +28,7 @@ function M.setup()
     ]])
    -- paso añadido: para cada línea con ## SCOR_PRE_RENEWAL ## date:
     vim.cmd([[
-      g/## SCOR_PRE_RENEWAL ## date:/call append(line('.'), ['```text', '```'])
+      g/## SCOR_PRE_RENEWAL ## date:/call append(line('.'), ['```', '```'])
     ]])
 
     -- --------------------------------------------------------
@@ -53,7 +53,7 @@ function M.setup()
         {                -- líneas a insertar
           "",
           "### TRAITS",
-          "```text",
+          "```",
           "```",
         }
       )
