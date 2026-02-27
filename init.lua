@@ -9,6 +9,9 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.hidden = true
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 10
+vim.opt.termguicolors = true
+
+
 
 -- Prepend Mason bin to PATH (para intelephense, node, etc.)
 local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
